@@ -1,0 +1,49 @@
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seva SOS · Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css"></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<aside>
+ <div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4Z"/><path d="M12 8v5m0 3v.01"/></svg></div><div><h1>Seva SOS</h1><small>Control Room · Kedarnath Corridor</small></div></div>
+ <nav id="nav" aria-label="Sections"></nav>
+ <div class="side-foot"><div class="live"><i></i>Receiving relays</div><div class="kbd-hint">Press <kbd>?</kbd> for shortcuts</div></div>
+</aside>
+<div class="shell">
+<header class="top">
+ <div><div class="crumb" id="crumb">Live SOS</div><div class="sub" id="subt">Real-time incident queue</div></div>
+ <div class="top-r">
+  <div class="conn"><span class="dot ok"></span>Uplink online</div>
+  <div class="clock" id="clock">--:--:--</div>
+  <button class="icon-btn" id="bell" title="Enable desktop alerts" aria-label="Enable desktop alerts"></button>
+  <button class="icon-btn" id="snd" title="Toggle sound" aria-label="Toggle sound"></button>
+  <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme"></button>
+  <div class="avatar" title="Duty Supervisor">DS</div>
+ </div>
+</header>
+<main id="main">
+<section id="live" class="on">
+ <div class="kpis" id="stats"></div>
+ <div class="split">
+  <div class="card queue"><div class="card-h"><h3>Incident queue</h3><span class="count" id="qcount"></span></div>
+   <div class="filters"><div class="search"><span id="sic"></span><input id="qs" placeholder="Search ID, type, location…" aria-label="Search incidents"></div>
+    <div class="seg" id="fseg"></div></div>
+   <div id="list" role="listbox" aria-label="Incidents"></div></div>
+  <div class="card detail"><div id="dhead"></div><div id="mini"></div><div id="dbody"></div></div>
+ </div>
+</section>
+<section id="map"><div id="mapbox"></div>
+ <div class="mpanel" id="mpanel"></div>
+ <div class="mlegend" id="mlegend"></div>
+ <div class="mcoord" id="mcoord"></div>
+</section>
+<section id="kg"><div class="split"><div class="card"><div class="card-h"><h3>Corridor knowledge graph</h3></div><canvas id="cv"></canvas><div class="legend" id="legend"></div></div>
+ <div class="card"><div class="card-h"><h3>Ask the graph</h3></div><form id="qf"><input id="q" placeholder="e.g. nearest uplink to Rambara" autocomplete="off"><button class="btn pri">Run query</button></form>
+ <div id="chips"></div><pre id="ans">Answers are computed deterministically from the graph: trail distance (haversine × 1.4) and walking time at 3.5 km/h. The evidence path is highlighted.</pre></div></div></section>
+<section id="teams"><div class="tgrid" id="tt"></div></section>
+<section id="guide"><div class="grid2" id="gd"></div></section>
+<section id="audit"><div class="card"><div class="card-h"><h3>Audit trail</h3><div class="row-r"><div class="search"><span id="aic"></span><input id="as" placeholder="Filter events…" aria-label="Filter audit"></div><button class="btn" id="csv"></button></div></div><div class="tbl"><table id="at"></table></div></div></section>
+</main></div>
+<div id="toasts" aria-live="polite"></div>
+<dialog id="help"><h3>Keyboard shortcuts</h3><dl><dt><kbd>1</kbd>–<kbd>6</kbd></dt><dd>Switch section</dd><dt><kbd>J</kbd> / <kbd>K</kbd></dt><dd>Next / previous incident</dd><dt><kbd>A</kbd></dt><dd>Acknowledge</dd><dt><kbd>D</kbd></dt><dd>Dispatch suggested team</dd><dt><kbd>N</kbd></dt><dd>Advance status</dd><dt><kbd>/</kbd></dt><dd>Search queue</dd></dl><button class="btn" onclick="help.close()">Close</button></dialog>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="app.js"></script></body></html>
